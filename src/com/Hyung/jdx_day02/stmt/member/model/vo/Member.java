@@ -14,7 +14,7 @@ public class Member {
 	private String hobby;
 	private Date enrollDate;
 
-	//
+	//123
 	
 	public Member() {
 		
