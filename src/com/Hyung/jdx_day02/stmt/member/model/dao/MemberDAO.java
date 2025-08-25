@@ -13,7 +13,7 @@ import com.Hyung.jdx_day02.stmt.member.model.vo.Member;
 
 public class MemberDAO {
 	private final String DRIVER_NAME = "oracle.jdbc.driver.OracleDriver";
-	private final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
+	private final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
 	private final String USER = "HYUNGJDBC";
 	private final String PASSWORD = "HYUNGJDBC";
 	
@@ -68,6 +68,7 @@ public class MemberDAO {
 															+"','"+member.getGender()
 															+"',"+member.getAge()
 															+",'"+member.getEmail()
+															+"','"+member.getPhone()
 															+"','"+member.getAddress()
 															+"','"+member.getHobby()
 															+"', DEFAULT)";
