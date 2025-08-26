@@ -13,7 +13,7 @@ public class MemberController {
 	}
 	
 	public Member findOneById(String memberId) {
-		return null;
+		return mDao.selectOneById(memberId);
 	}
 	public List<Member> showMemberList() {
 		List<Member> mList = mDao.selectList();
@@ -24,9 +24,11 @@ public class MemberController {
 		return result;
 	}
 	public int updateMember(Member member) {
-		return 0;
+		int result = mDao.updateMember(member);
+		return result;
 	}
 	public int deleteMember(String member) {
-		return 0;
+		int result = mDao.deleteMember(member);
+		return result;
 	}
 }

@@ -14,7 +14,7 @@ public class Member {
 	private String hobby;
 	private Date enrollDate;
 
-	//123
+
 	
 	public Member() {
 		
@@ -33,6 +33,16 @@ public class Member {
 		this.address = address;
 		this.hobby = hobby;
 		this.enrollDate = enrollDate;
+	}
+
+	public Member(String memberId, String memberPwd, String email, String phone, String address, String hobby) {
+		super();
+		this.memberId = memberId;
+		this.memberPwd = memberPwd;
+		this.email = email;
+		this.phone = phone;
+		this.address = address;
+		this.hobby = hobby;
 	}
 
 	public Date getEnrollDate() {

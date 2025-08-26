@@ -42,7 +42,7 @@ public class MemberDAO {
 					String phone = rset.getString("PHONE");
 					String address = rset.getString("ADDRESS");
 					String hobby = rset.getString("HOBBY");
-					Date enrollDate = rset.getDate("ENROLL DATE");
+					Date enrollDate = rset.getDate("ENROLL_DATE");
 					Member member = new Member(memberId, memberPwd, memberName, gender, age, email, phone, address, hobby, enrollDate);
 					mList.add(member);
 				}
@@ -56,7 +56,48 @@ public class MemberDAO {
 			return mList;
 		}
 		public Member selectOneById(String memberId) {
-			return null;
+			Connection conn =null;
+			Statement stmt = null;
+			ResultSet rset = null;
+			Member member = null;
+			String query = "SELECT * FROM MEMBER_TBL WHERE MEMBER_ID = '"+memberId+"'";
+			
+			try {
+				Class.forName(DRIVER_NAME);
+				conn = DriverManager.getConnection(URL, USER, PASSWORD);
+				stmt = conn.createStatement();
+				rset = stmt.executeQuery(query);
+				// 후처리 rset -> Member || List<Member> 
+				if(rset.next()) {
+					member = new Member();
+					member.setMemberId(rset.getString("MEMBER_ID"));
+					member.setMemberPwd(rset.getString("MEMBER_PWD"));
+					member.setMemberName(rset.getString("MEMBER_NAME"));
+					member.setGender(rset.getString("GENDER").charAt(0));
+					member.setAge(rset.getInt("AGE"));
+					member.setEmail(rset.getString("EMAIL"));
+					member.setPhone(rset.getString("PHONE"));
+					member.setAddress(rset.getString("ADDRESS"));
+					member.setHobby(rset.getString("HOBBY"));
+					member.setEnrollDate(rset.getDate("ENROLL_DATE"));
+					
+				}
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					rset.close();
+					stmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			return member;
 		}
 		public int insertMember(Member member) {
 			// insert가 성공한 행의 개수
@@ -84,9 +125,50 @@ public class MemberDAO {
 			return result;
 		}
 		public int updateMember(Member member) {
-			return 0;
+			Connection conn = null;
+			Statement stmt = null;
+			String query = "UPDATE MEMBER_TBL SET MEMBER_PWD = '"+member.getMemberPwd()+"', EMAIL = '"+member.getEmail()+"', PHONE = '"+member.getPhone()+"', ADDRESS = '"+member.getAddress()+"', HOBBY = '"+member.getHobby()+"' WHERE MEMBER_ID = '"+member.getMemberId()+"'";
+			int result = 0;
+
+			try {
+				Class.forName(DRIVER_NAME);
+				conn = DriverManager.getConnection(URL, USER, PASSWORD);
+				stmt = conn.createStatement();
+				result = stmt.executeUpdate(query);	
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+					try {
+						stmt.close();
+						conn.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}					
+			}
+
+			return result;
 		}
 		public int deleteMember(String memberId) {
-			return 0;			
+			int result = 0;
+			try {
+				Class.forName(DRIVER_NAME);
+				Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+				Statement stmt = conn.createStatement();
+				String query = "DELETE FROM MEMBER_TBL WHERE MEMBER_ID = '"+memberId+"'";
+				result = stmt.executeUpdate(query);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return result;			
 		}
 }
