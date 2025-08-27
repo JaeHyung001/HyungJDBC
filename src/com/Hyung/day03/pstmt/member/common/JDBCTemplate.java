@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class JDBCTemplate { // 객체를 계속 생성하지 않고 재사용하려고 만드는 싱글톤패턴
 	private final String DRIVER_NAME = "oracle.jdbc.driver.OracleDriver";
-	private final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
+	private final String URL = "jdbc:oracle:thin:@0192.168.60.252:1521:XE";
 	private final String USER = "HYUNGJDBC";
 	private final String PASSWORD = "HYUNGJDBC";
 	
